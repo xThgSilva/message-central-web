@@ -1,1 +1,1 @@
-# Notification Central Web
+# Message Central Web
