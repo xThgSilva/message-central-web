@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import AuthRegisterComponent from "../components/AuthRegisterComponent";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
+    const navigate = useNavigate();
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -29,6 +31,7 @@ export default function Register() {
                 setEmail("");
                 setPassword("");
                 setLoading(false)
+                navigate("/login")
             }
             else {
                 throw new Error("Error to register");
