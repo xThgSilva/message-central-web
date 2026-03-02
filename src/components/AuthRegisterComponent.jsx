@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/AuthRegisterComponent/style.css"
 import { Link } from "react-router-dom";
 
-const AuthRegisterComponent = ({ pageTitle, auxiliaryText, children, actionButton, linkText, toPage }) => {
+const AuthRegisterComponent = ({ pageTitle, auxiliaryText, children, childrenButtons }) => {
     return (
         <>
             <div className="container">
@@ -16,8 +16,7 @@ const AuthRegisterComponent = ({ pageTitle, auxiliaryText, children, actionButto
                         {children}
                     </div>
 
-                    <button type="button">{actionButton}</button>
-                    <Link to={toPage} className="register-link">{linkText}</Link>
+                    {childrenButtons}
                 </form>
             </div>
         </>
