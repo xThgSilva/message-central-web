@@ -5,11 +5,11 @@ import Home from "./pages/Home"
 
 function App() {
   return (
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/register" element={<Register/>} />
-        <Route path="/home" element={<Home />} />
-      </Routes>
+    <Routes>
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register/>} />
+      <Route path="/home" element={<Home />} />
+    </Routes>
   )
 }
 

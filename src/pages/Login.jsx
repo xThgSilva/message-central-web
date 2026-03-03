@@ -9,6 +9,11 @@ export default function Login() {
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
 
+    // Temporally to deploy test
+    function navigateToHomeTest() {
+        navigate("/home")
+    }
+
     async function handleLogin() {
         try {
             setLoading(true)
@@ -22,7 +27,7 @@ export default function Login() {
                     password: password
                 })
             });
-    
+
             const data = await response.json();
 
             if (response.ok) {
@@ -36,7 +41,7 @@ export default function Login() {
             else {
                 throw new Error("Login error")
             }
-        } catch(error) {
+        } catch (error) {
             console.log("[EROR]: " + error)
         }
     }
@@ -49,7 +54,7 @@ export default function Login() {
             toPage={"/register"}
             childrenButtons={
                 <>
-                    <button type="button" onClick={() => handleLogin()}>
+                    <button type="button" onClick={navigateToHomeTest}>
                         {
                             loading == true ? "Loading..." : "Sign in"
                         }
@@ -59,11 +64,11 @@ export default function Login() {
         >
             <div className="input-container">
                 <label htmlFor="">Email</label>
-                <input type="email" onChange={(event) => setEmail(event.target.value)}/>
+                <input type="email" onChange={(event) => setEmail(event.target.value)} />
             </div>
             <div className="input-container">
                 <label htmlFor="">Password</label>
-                <input type="password" onChange={(event) => setPassword(event.target.value)}/>
+                <input type="password" onChange={(event) => setPassword(event.target.value)} />
             </div>
         </AuthRegisterComponent>
     )

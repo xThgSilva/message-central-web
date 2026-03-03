@@ -1,0 +1,13 @@
+:root {
+    --orange-color: #FF5C00;
+    --background-color: #444444;
+    --white-color: #FFF;
+    --input-border-color: #CCC
+}
+
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}

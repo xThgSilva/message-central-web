@@ -1,21 +1,14 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
 .container {
     height: 100vh;
     width: 100%;
-    background-color: #444444;
+    background-color: var(--background-color);
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .login-container {
-    background-color: white;
+    background-color: var(--white-color);
     width: 40%;
     align-self: center;
     border-radius: 10px;
@@ -30,13 +23,13 @@
 }
 
 .header-login h1 {
-    color: #FF5C00;
+    color: var(--orange-color);
     font-weight: bold;
     margin-bottom: 10px;
 }
 
 .header-login p {
-    color: #FF5C00;
+    color: var(--orange-color);
     font-size: 1.2rem;
 }
 
@@ -59,7 +52,7 @@
 .input-container input {
     outline: none;
     border: none;
-    border: 1px solid #ccc;
+    border: 1px solid var(--input-border-color);
     padding: 15px;
     border-radius: 10px;
     font-size: 1.125rem;
@@ -70,7 +63,7 @@
     position: absolute;
     bottom: 40px;
     left: 10px;
-    background-color: white;
+    background-color: var(--white-color);
     padding: 5px;
 }
 
@@ -79,8 +72,8 @@
     align-self: center;
     margin: 20px;
     font-size: 1.5rem;
-    color: #FF5C00;
-    background-color: white;
+    color: var(--orange-color);
+    background-color: var(--white-color);
     border: none;
     border-radius: 10px;
     padding: 10px;
@@ -90,15 +83,15 @@
 .login-container button:hover {
     transform: translateY(-4px);
     border: none;
-    background-color: #FF5C00;
-    color: white;
+    background-color: var(--orange-color);
+    color: var(--white-color);
 }
 
 .register-link {
     margin-bottom: 40px;
     text-align: center;
     text-decoration: none;
-    color: #FF5C00;
+    color: var(--orange-color);
     width: 60%;
     align-self: center;
     font-size: 1.25rem;
