@@ -10,11 +10,6 @@ export default function Register() {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false)
 
-    // Temporally to deploy test
-    function navigateToLoginTest() {
-        navigate("/")
-    }
-
     async function handleRegisterUser() {
         setLoading(true)
         try {
@@ -46,6 +41,7 @@ export default function Register() {
             console.log("[ERROR]: " + error);
         }
     }
+    
     return (
         <AuthRegisterComponent
             pageTitle="Register"
@@ -54,7 +50,7 @@ export default function Register() {
             linkText={"Already have an account? Login"}
             childrenButtons={
                 <>
-                    <button onClick={navigateToLoginTest} type="button">
+                    <button onClick={handleRegisterUser} type="button">
                         {
                             loading == true ? "Loading...": "Register"
                         }

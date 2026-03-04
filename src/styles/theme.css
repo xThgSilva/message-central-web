@@ -2,7 +2,8 @@
     --orange-color: #FF5C00;
     --background-color: #444444;
     --white-color: #FFF;
-    --input-border-color: #CCC
+    --input-border-color: #CCC;
+    --background-orange-disabled: #F59760
 }
 
 * {

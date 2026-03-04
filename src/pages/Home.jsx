@@ -1,14 +1,85 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Home/style.css"
+import UserCard from "../components/UserCard";
 
 export default function Home() {
     const navigate = useNavigate();
+
+    const [page, setPage] = useState(0);
+    const [totalPages, setTotalPages] = useState(0);
+    const [users, setUsers] = useState([]);
+    const [username, setUsername] = useState("");
+
+    const token = sessionStorage.getItem("token");
 
     function handleLogout() {
         sessionStorage.removeItem("token");
         navigate("/");
     }
+
+    useEffect(() => {
+        if (!token) {
+            navigate("/");
+            return;
+        }
+        else {
+            async function getUserInformations() {
+                try {
+                    const response = await fetch(`http://localhost:8080/user/me`, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok) {
+                        setUsername(data.name);
+                    }
+                    else {
+                        throw new Error("[ERROR] Error finding user login information.");
+                    }
+                }
+                catch (error) {
+                    console.log(`[ERROR]: ${error}`);
+                }
+            }
+
+            getUserInformations();
+        }
+    })
+
+    useEffect(() => {
+        async function findAllUsers() {
+            try {
+                const response = await fetch(`http://localhost:8080/user/all?page=${page}&size=3`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    setUsers(data.content);
+                    setTotalPages(data.totalPages);
+                }
+                else {
+                    throw new Error("[ERRO] Error to list avaible users.");
+                }
+            }
+            catch (error) {
+                alert("Check the console");
+                console.log("[ERROR]: " + error)
+            }
+        }
+        
+        findAllUsers();
+    }, [page]);
 
     return (
         <>
@@ -16,16 +87,41 @@ export default function Home() {
                 <header>
                     <h2>Home</h2>
                     <h1>Message Central</h1>
-                    <p>Welcome, User!</p>
+                    <p>Welcome, {username}!</p>
                     <button onClick={handleLogout}>Logout</button>
                 </header>
                 <main className="main-container">
-                    <section className="users-list">
-                        <h1>Users List</h1>
-                        <input type="text"placeholder="Find a user..." />
+                    <section className="users-section">
+                        <h2>Available Users</h2>
+                        <input type="text" placeholder="Find a user..." />
+                        <div className="users-list">
+                            {
+                                users.length === 0 ?
+                                    <p className="no-registered-users">There are not registered users.</p>
+                                    : (
+                                        <>
+                                            {
+                                                users.map(user => (
+                                                    <UserCard
+                                                        key={user.id}
+                                                        name={user.name}
+                                                    />
+                                                ))
+                                            }
+                                            <div className="page-guide">
+                                                <p>Page {page} of {totalPages - 1}</p>
+                                                <div className="page-guide-buttons">
+                                                    <button onClick={() => setPage(page - 1)} disabled={page === 0}>Previous page</button>
+                                                    <button onClick={() => setPage(page + 1)} disabled={page === totalPages - 1} >Next page</button>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )
+                            }
+                        </div>
                     </section>
                     <section className="chat-section">
-                        <h1>Chat Section</h1>
+                        <h2>Chat Section</h2>
                     </section>
                 </main>
             </div>

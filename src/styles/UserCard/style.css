@@ -1,0 +1,18 @@
+.user-info-container {
+    margin: 20px;
+    border: 1px solid var(--input-border-color);
+    padding: 10px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-info-container button {
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--orange-color);
+    color: white;
+    font-weight: bold;
+}

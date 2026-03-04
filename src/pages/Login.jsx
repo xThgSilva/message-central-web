@@ -9,11 +9,6 @@ export default function Login() {
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
 
-    // Temporally to deploy test
-    function navigateToHomeTest() {
-        navigate("/home")
-    }
-
     async function handleLogin() {
         try {
             setLoading(true)
@@ -54,7 +49,7 @@ export default function Login() {
             toPage={"/register"}
             childrenButtons={
                 <>
-                    <button type="button" onClick={navigateToHomeTest}>
+                    <button type="button" onClick={(handleLogin)}>
                         {
                             loading == true ? "Loading..." : "Sign in"
                         }
