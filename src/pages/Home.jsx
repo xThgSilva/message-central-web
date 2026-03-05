@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Home/style.css"
 import UserCard from "../components/UserCard";
+import ChatComponent from "../components/ChatComponent";
 
 export default function Home() {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ export default function Home() {
     const [totalPages, setTotalPages] = useState(0);
     const [users, setUsers] = useState([]);
     const [username, setUsername] = useState("");
+    const [userSelected, setUserSelected] = useState(null);
 
     const token = sessionStorage.getItem("token");
 
@@ -49,7 +51,7 @@ export default function Home() {
 
             getUserInformations();
         }
-    })
+    }, []);
 
     useEffect(() => {
         async function findAllUsers() {
@@ -77,7 +79,7 @@ export default function Home() {
                 console.log("[ERROR]: " + error)
             }
         }
-        
+
         findAllUsers();
     }, [page]);
 
@@ -104,7 +106,8 @@ export default function Home() {
                                                 users.map(user => (
                                                     <UserCard
                                                         key={user.id}
-                                                        name={user.name}
+                                                        user={user}
+                                                        onSelect={() => setUserSelected(user)}
                                                     />
                                                 ))
                                             }
@@ -121,7 +124,17 @@ export default function Home() {
                         </div>
                     </section>
                     <section className="chat-section">
-                        <h2>Chat Section</h2>
+                        <h2>Your Chat</h2>
+                        {
+                            userSelected == null ?
+                                <p>Choose someone to start a conversation with.</p>
+                                :
+                                <>
+                                    <ChatComponent
+                                        user={userSelected}
+                                    />
+                                </>
+                        }
                     </section>
                 </main>
             </div>

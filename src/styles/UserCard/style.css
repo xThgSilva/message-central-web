@@ -15,4 +15,5 @@
     background-color: var(--orange-color);
     color: white;
     font-weight: bold;
+    cursor: pointer;
 }

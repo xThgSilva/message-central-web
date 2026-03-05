@@ -60,10 +60,6 @@
     font-size: 1.125rem;
 }
 
-.chat-section{
-    flex: 1;
-}
-
 .no-registered-users {
     font-size: 1.125rem;
     text-align: center;
@@ -93,4 +89,14 @@
 
 .page-guide-buttons button:disabled {
     background: var(--background-orange-disabled);
+}
+
+.chat-section{
+    flex: 1;
+}
+
+.chat-section p {
+    text-align: center;
+    margin-top: 150px;
+    font-size: 2rem;
 }

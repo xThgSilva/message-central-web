@@ -1,12 +1,12 @@
 import React from "react";
 import "../styles/UserCard/style.css"
 
-const UserCard = ({name}) => {
+const UserCard = ({user, onSelect}) => {
     return (
         <>
             <div className="user-info-container">
-                <p>{name}</p>
-                <button>Send a message</button>
+                <p>{user.name}</p>
+                <button onClick={onSelect}>Send a message</button>
             </div>
         </>
     )
