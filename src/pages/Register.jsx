@@ -31,7 +31,7 @@ export default function Register() {
                 setEmail("");
                 setPassword("");
                 setLoading(false)
-                navigate("/login")
+                navigate("/")
             }
             else {
                 throw new Error("Error to register");
@@ -41,7 +41,7 @@ export default function Register() {
             console.log("[ERROR]: " + error);
         }
     }
-    
+
     return (
         <AuthRegisterComponent
             pageTitle="Register"
@@ -51,9 +51,7 @@ export default function Register() {
             childrenButtons={
                 <>
                     <button onClick={handleRegisterUser} type="button">
-                        {
-                            loading == true ? "Loading...": "Register"
-                        }
+                        {loading ? <div className="loading-div"></div> : "Register"}
                     </button>
                     <Link to={"/"} className="register-link">Already have an account? Login</Link>
                 </>}

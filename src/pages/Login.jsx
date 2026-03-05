@@ -38,6 +38,7 @@ export default function Login() {
             }
         } catch (error) {
             console.log("[EROR]: " + error)
+            setLoading(false)
         }
     }
 
@@ -49,10 +50,8 @@ export default function Login() {
             toPage={"/register"}
             childrenButtons={
                 <>
-                    <button type="button" onClick={(handleLogin)}>
-                        {
-                            loading == true ? "Loading..." : "Sign in"
-                        }
+                    <button type="button" onClick={handleLogin}>
+                        {loading ? <div className="loading-div"></div> : "Sign in"}
                     </button>
                     <Link to={"/register"} className="register-link">Don't have an account? Register</Link>
                 </>}
