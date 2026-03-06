@@ -6,6 +6,7 @@ import MessageComponent from "./MessageComponent";
 const ChatComponent = ({ user }) => {
 
     const [userLogged, setUserLogged] = useState(null);
+    const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
 
     const token = sessionStorage.getItem("token");
@@ -40,16 +41,16 @@ const ChatComponent = ({ user }) => {
 
             getUserInformations();
         }
-    })
+    }, [])
 
     useEffect(() => {
-        if (!userLogged) 
+        if (!userLogged)
             return;
 
         async function renderUserMessages() {
             try {
                 const response = await fetch(
-                    `http://localhost:8080/message/conversation/${user.id}/${userLogged.id}`,
+                    `http://localhost:8080/message/conversation/${userLogged.id}/${user.id}`,
                     {
                         method: "GET",
                         headers: {
@@ -70,13 +71,40 @@ const ChatComponent = ({ user }) => {
         }
 
         renderUserMessages();
-    }, [userLogged]);
+    }, [user]);
+
+    async function sendMessage() {
+        try {
+            const response = await fetch("http://localhost:8080/message/send", {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    senderUserId: userLogged.id,
+                    recipientUserId: user.id,
+                    content: message
+                })
+            });
+
+            if (response.ok) {
+                setMessage("");
+            }
+            else {
+                throw new Error(`Error to send message to ${user.name}`);
+            }
+
+        } catch (error) {
+            alert("Check console");
+            console.log(`[ERROR]: ${error}`)
+        }
+    }
 
     return (
         <>
             <section className="chat-container">
-                {/* To test */}
-                <h1>{user.name}</h1>
+                <h1 className="chat-username">{user.name}</h1>
 
                 <div className="messages-container">
                     {
@@ -84,14 +112,15 @@ const ChatComponent = ({ user }) => {
                             <MessageComponent
                                 key={m.id}
                                 message={m}
+                                isOwnMessage={m.senderUserId === userLogged.id}
                             />
                         ))
                     }
                 </div>
 
                 <div className="send-message-bottom">
-                    <input type="text" placeholder="Type a message..." />
-                    <button><FaPaperPlane></FaPaperPlane></button>
+                    <input type="text" placeholder="Type a message..." value={message} onChange={(event) => setMessage(event.target.value)} />
+                    <button onClick={() => sendMessage()}><FaPaperPlane></FaPaperPlane></button>
                 </div>
             </section>
         </>

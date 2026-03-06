@@ -1,0 +1,33 @@
+.message-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message {
+    width: 80%;
+    padding: 20px
+}
+
+.message p {
+    font-size: 2rem;
+}
+
+.message.own-message {
+    background-color: var(--orange-own-message);
+    color: var(--white-color);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.message.user-message {
+    margin-left: 10px;
+    border: 1px solid var(--input-border-color);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}

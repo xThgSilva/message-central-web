@@ -127,7 +127,7 @@ export default function Home() {
                         <h2>Your Chat</h2>
                         {
                             userSelected == null ?
-                                <p>Choose someone to start a conversation with.</p>
+                                <p className="choose-someone">Choose someone to start a conversation with.</p>
                                 :
                                 <>
                                     <ChatComponent
