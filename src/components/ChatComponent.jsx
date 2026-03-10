@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import "../styles/ChatComponent/style.css"
 import { FaPaperPlane } from "react-icons/fa";
 import MessageComponent from "./MessageComponent";
+import SockJS from "sockjs-client";
+import { Client } from "@stomp/stompjs"
 
 const ChatComponent = ({ user }) => {
 
@@ -43,8 +45,30 @@ const ChatComponent = ({ user }) => {
         }
     }, [])
 
+    // To websocket connection
     useEffect(() => {
         if (!userLogged)
+            return;
+
+        const socket = new SockJS("http://localhost:8080/chat");
+
+        const client = new Client({
+            webSocketFactory: () => socket,
+            reconnectDelay: 5000,
+            onConnect: () => {
+                client.subscribe(`/topic/messages/${userLogged.id}`, (msg) => {
+                    const message = JSON.parse(msg.body);
+                    setMessages(prev => [...prev, message]);
+                });
+            }
+        });
+        client.activate();
+        return () => client.deactivate();
+
+    }, [userLogged]);
+
+    useEffect(() => {
+        if (!userLogged) 
             return;
 
         async function renderUserMessages() {
@@ -52,13 +76,11 @@ const ChatComponent = ({ user }) => {
                 const response = await fetch(
                     `http://localhost:8080/message/conversation/${userLogged.id}/${user.id}`,
                     {
-                        method: "GET",
                         headers: {
-                            "Authorization": `Bearer ${token}`
+                            Authorization: `Bearer ${token}`
                         }
                     }
                 );
-
                 const data = await response.json();
 
                 if (response.ok) {
@@ -71,7 +93,7 @@ const ChatComponent = ({ user }) => {
         }
 
         renderUserMessages();
-    }, [user]);
+    }, [userLogged, user]);
 
     async function sendMessage() {
         try {
