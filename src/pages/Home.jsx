@@ -12,6 +12,7 @@ export default function Home() {
     const [users, setUsers] = useState([]);
     const [username, setUsername] = useState("");
     const [userSelected, setUserSelected] = useState(null);
+    const [searchUser, setSearchUser] = useState("");
 
     const token = sessionStorage.getItem("token");
 
@@ -54,34 +55,28 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        async function findAllUsers() {
-            try {
-                const response = await fetch(`http://localhost:8080/user/all?page=${page}&size=3`, {
-                    method: "GET",
+        async function handleFindUsers() {
+
+            const response = await fetch(
+                `http://localhost:8080/user?name=${searchUser}&page=${page}&size=3`,
+                {
                     headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`
+                        Authorization: `Bearer ${token}`
                     }
-                });
-
-                const data = await response.json();
-
-                if (response.ok) {
-                    setUsers(data.content);
-                    setTotalPages(data.totalPages);
                 }
-                else {
-                    throw new Error("[ERRO] Error to list avaible users.");
-                }
-            }
-            catch (error) {
-                alert("Check the console");
-                console.log("[ERROR]: " + error)
+            );
+
+            const data = await response.json();
+
+            if (response.ok) {
+                setUsers(data.content);
+                setTotalPages(data.totalPages);
             }
         }
 
-        findAllUsers();
-    }, [page]);
+        handleFindUsers();
+
+    }, [page, searchUser]);
 
     return (
         <>
@@ -95,7 +90,7 @@ export default function Home() {
                 <main className="main-container">
                     <section className="users-section">
                         <h2>Available Users</h2>
-                        <input type="text" placeholder="Find a user..." />
+                        <input type="text" value={searchUser} onChange={(event) => setSearchUser(event.target.value)} placeholder="Find a user..." />
                         <div className="users-list">
                             {
                                 users.length === 0 ?
