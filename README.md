@@ -104,7 +104,6 @@ npm run dev
 
 # Back-end
 See also the project's back-end.
-# Message Central Web
 
 [![Access API](https://img.shields.io/badge/Access_API-Backend-black?style=for-the-badge&logo=springboot)](https://github.com/xThgSilva/message-central-api)
 
