@@ -1,18 +1,26 @@
 # Message Central Web
 Message Central is a real-time chat interface built with React. The application allows users to register, authenticate and exchange messages in real time using WebSocket communication with the backend.
 This project is the frontend of the Message Central system.
+<div align="center">
 
-# Technologies
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+</div>
+
+# Technologies
+- React
+- CSS
+- JavaScript
+- React Router Dom
+- Web Socket
 
 # Features
 - User authentication (JWT)
 - Login and registration pages
 - User search
-- Pagination user list
+- Paginated user list
 - Real time chat
 
 # Screenshots
@@ -39,7 +47,7 @@ the token in the `Authorization` header using the Bearer scheme.
 
 Example:
 
-Authorization: Bearer <token>
+Authorization: Bearer your_token_here
 
 In the current version, the token is stored in `sessionStorage` to simplify the
 authentication flow during development and focus on backend architecture.
@@ -66,7 +74,7 @@ production security best practices.
 - npm
 
 ## Installation
-1. Clone repository:
+1. Clone the repository:
 ````
 https://github.com/xThgSilva/message-central-web.git
 ````
@@ -90,9 +98,14 @@ npm run dev
 - SockJS
 - STOMP.js
 
-
 # Future Features
 - Responsive layout for most devices
 - Better UI style
 
-> If you have any questions, consult the person in charge of the project.
+# Back-end
+See also the project's back-end.
+# Message Central Web
+
+[![Access API](https://img.shields.io/badge/Access_API-Backend-black?style=for-the-badge&logo=springboot)](https://github.com/xThgSilva/message-central-api)
+
+> If you have any questions or suggestions, feel free to open an issue.
